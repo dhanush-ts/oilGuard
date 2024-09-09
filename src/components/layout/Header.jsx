@@ -22,9 +22,9 @@ export const Header = () => {
             <strong className="my-auto text-2xl">OilGuard<i class="bi bi-droplet-half"></i></strong>
         </div>
         <nav className="flex">
-            <NavLink to='/' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto hover:pb-2 hover:transition-all duration-500 mx-2 dark:text-gray-500 "}>Dashboard</NavLink>
+            <NavLink to='/' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto hover:pb-2 hover:transition-all duration-500 mx-2 dark:text-gray-500 "}>Home</NavLink>
             <Separator orientation="vertical" />
-            <NavLink to='/shipment' className={(a)=>a.isActive?"my-auto mx-2 hover:pb-2 hover:transition-all duration-500  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>Shipment</NavLink>
+            <NavLink to='/dashboard' className={(a)=>a.isActive?"my-auto mx-2 hover:pb-2 hover:transition-all duration-500  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>Dashboard</NavLink>
             <Separator orientation="vertical" />
             <NavLink to='/vehicle' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>Vehicle</NavLink>
             <Separator orientation="vertical" />

@@ -1,5 +1,5 @@
 import { VesselMap } from '@/components/dashboard/AllShips';
-import { VesselFinderRoute } from '@/components/dashboard/ProjectManagementDash';
+import { VesselFinderRoute } from '@/components/dashboard/Search';
 import { Button } from '@/components/ui/button';
 import React, { useEffect, useState } from 'react';
 

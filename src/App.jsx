@@ -1,16 +1,16 @@
 import Sample from "@/features/Sample";
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Header } from "./components/layout/Header";
-import { Login } from "./pages/auth/Login";
-import { DashSidebar } from "./pages/dashboard/DashSidebar";
+// import { Login } from "./pages/auth/Login";
+// import { DashSidebar } from "./pages/dashboard/DashSidebar";
+import { AllRoutes } from "./AllRoutes";
 
 function Home() {
   return (
     <div >
       <Header />
-      {/* <Sample /> */}
-      {/* <Login /> */}
-      <DashSidebar />
+      <AllRoutes />
+      {/* <DashSidebar /> */}
     </div>
   )
 }

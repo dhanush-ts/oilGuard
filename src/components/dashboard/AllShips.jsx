@@ -74,9 +74,9 @@ export const VesselMap = () => {
         width: '100%',
         height: '100vh',
         marginTop: '20px',
-        borderRadius: '15px', // Rounded corners for container
-        overflow: 'hidden', // Hide overflow to create rounded effect
-        position: 'relative', // Ensure positioning context
+        borderRadius: '15px', 
+        overflow: 'hidden', 
+        position: 'relative', 
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
