@@ -36,12 +36,12 @@ export const description = "A collection of health charts."
 
 export function Charts() {
   return (
-    <div className="chart-wrapper mx-auto flex max-w-7xl flex-col flex-wrap items-start justify-center ml-28 gap-24 sm:flex-row sm:p-8">
-      <div className="grid w-full gap-16 sm:grid-cols-2 lg:max-w-[22rem] lg:grid-cols-1 xl:max-w-[25rem]">
+    <div className="chart-wrapper mx-auto flex max-w-screen flex-col flex-wrap items-start justify-center ml-16 gap-24 sm:flex-row sm:p-8">
+      <div className="grid w-full gap-16 sm:grid-cols-2 lg:max-w-[22rem] lg:grid-cols-1 xl:max-w-screen">
       <Card className="lg:max-w-md">
   <CardHeader className="space-y-0 pb-2">
     <CardDescription>Post-Oil Spill Recovery Techniques</CardDescription>
-    <CardTitle className="text-4xl tabular-nums">
+    <CardTitle className="text-2xl tabular-nums">
       $ 157.03 Bn{" "}
       <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
         (2023 Total Market Size)
@@ -100,7 +100,7 @@ export function Charts() {
           tickLine={false}
           axisLine={false}
           tickMargin={4}
-          label={{ value: "Revenue (USD Billion)", angle: -90, position: 'insideLeft' }}
+          label={{ value: "Revenue (USD Billion)", angle: -90, position: "middle"}}
         />
         <ChartTooltip
           defaultIndex={0}
@@ -223,11 +223,11 @@ export function Charts() {
           stroke="var(--color-marketGrowth)"
           strokeWidth={2}
           dot={false}
-          activeDot={{
-            fill: "var(--color-marketGrowth)",
-            stroke: "var(--color-marketGrowth)",
-            r: 4,
-          }}
+        //   activeDot={{
+        //     fill: "var(--color-marketGrowth)",
+        //     stroke: "var(--color-marketGrowth)",
+        //     r: 4,
+        //   }}
         />
         <ChartTooltip
           content={
@@ -245,121 +245,129 @@ export function Charts() {
   </CardContent>
 </Card>
       </div>
-      <div className="grid w-full flex-1 gap-12 lg:max-w-[20rem]">
-        <Card
-          className="max-w-xs" x-chunk="charts-01-chunk-2"
-        >
-          <CardHeader>
-            <CardTitle>Progress</CardTitle>
-            <CardDescription>
-              You're average more steps a day this year than last year.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid auto-rows-min gap-2">
-              <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
-                12,453
-                <span className="text-sm font-normal text-muted-foreground">
-                  steps/day
-                </span>
-              </div>
-              <ChartContainer
-                config={{
-                  steps: {
-                    label: "Steps",
-                    color: "hsl(var(--chart-1))",
-                  },
-                }}
-                className="aspect-auto h-[32px] w-full"
-              >
-                <BarChart
-                  accessibilityLayer
-                  layout="vertical"
-                  margin={{
-                    left: 0,
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                  }}
-                  data={[
-                    {
-                      date: "2024",
-                      steps: 12435,
-                    },
-                  ]}
-                >
-                  <Bar
-                    dataKey="steps"
-                    fill="var(--color-steps)"
-                    radius={4}
-                    barSize={32}
-                  >
-                    <LabelList
-                      position="insideLeft"
-                      dataKey="date"
-                      offset={8}
-                      fontSize={12}
-                      fill="white"
-                    />
-                  </Bar>
-                  <YAxis dataKey="date" type="category" tickCount={1} hide />
-                  <XAxis dataKey="steps" type="number" hide />
-                </BarChart>
-              </ChartContainer>
-            </div>
-            <div className="grid auto-rows-min gap-2">
-              <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
-                10,103
-                <span className="text-sm font-normal text-muted-foreground">
-                  steps/day
-                </span>
-              </div>
-              <ChartContainer
-                config={{
-                  steps: {
-                    label: "Steps",
-                    color: "hsl(var(--muted))",
-                  },
-                }}
-                className="aspect-auto h-[32px] w-full"
-              >
-                <BarChart
-                  accessibilityLayer
-                  layout="vertical"
-                  margin={{
-                    left: 0,
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                  }}
-                  data={[
-                    {
-                      date: "2023",
-                      steps: 10103,
-                    },
-                  ]}
-                >
-                  <Bar
-                    dataKey="steps"
-                    fill="var(--color-steps)"
-                    radius={4}
-                    barSize={32}
-                  >
-                    <LabelList
-                      position="insideLeft"
-                      dataKey="date"
-                      offset={8}
-                      fontSize={12}
-                      fill="hsl(var(--muted-foreground))"
-                    />
-                  </Bar>
-                  <YAxis dataKey="date" type="category" tickCount={1} hide />
-                  <XAxis dataKey="steps" type="number" hide />
-                </BarChart>
-              </ChartContainer>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid w-full flex-1 gap-12 lg:max-w-2xl">
+      <Card className="flex flex-col lg:max-w-xl">
+  <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2 [&>div]:flex-1">
+    <div>
+      <CardDescription>Market Growth</CardDescription>
+      <CardTitle className="flex items-baseline gap-3 text-xl tabular-nums">
+        Pacific vs Global
+        <span className="text-sm font-normal tracking-normal text-muted-foreground">
+          Oil Spill Management Market
+        </span>
+      </CardTitle>
+    </div>
+  </CardHeader>
+  <CardContent className="flex flex-1 items-center">
+    <ChartContainer
+      config={{
+        marketGrowth: {
+          label: "Market Growth",
+          color: "hsl(var(--chart-1))",
+        },
+      }}
+      className="w-full"
+    >
+      <LineChart
+        accessibilityLayer
+        margin={{
+          left: 14,
+          right: 14,
+          top: 10,
+        }}
+        data={[
+          {
+            year: "2022",
+            asia_pacific_growth: 21.54,
+            global_growth: 125.6,
+          },
+          {
+            year: "2023",
+            asia_pacific_growth: 22.38,
+            global_growth: 129.0,
+          },
+          {
+            year: "2024",
+            asia_pacific_growth: 23.25,
+            global_growth: 132.5,
+          },
+          {
+            year: "2025",
+            asia_pacific_growth: 24.15,
+            global_growth: 136.1,
+          },
+          {
+            year: "2026",
+            asia_pacific_growth: 25.08,
+            global_growth: 139.8,
+          },
+          {
+            year: "2027",
+            asia_pacific_growth: 26.02,
+            global_growth: 143.5,
+          },
+          {
+            year: "2028",
+            asia_pacific_growth: 26.99,
+            global_growth: 147.3,
+          },
+          {
+            year: "2029",
+            asia_pacific_growth: 27.98,
+            global_growth: 151.1,
+          },
+          {
+            year: "2030",
+            asia_pacific_growth: 28.99,
+            global_growth: 155.0,
+          },
+        ]}
+      >
+        <CartesianGrid
+          strokeDasharray="4 4"
+          vertical={false}
+          stroke="hsl(var(--muted-foreground))"
+          strokeOpacity={0.5}
+        />
+        <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
+        <XAxis
+          dataKey="year"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+        />
+        <Line
+          dataKey="asia_pacific_growth"
+          type="natural"
+          fill="blue"
+          stroke="blue"
+          strokeWidth={2}
+          dot={{ stroke: 'blue', fill: 'blue', r: 4 }}
+        />
+        <Line
+          dataKey="global_growth"
+          type="natural"
+          fill="green"
+          stroke="green"
+          strokeWidth={2}
+          dot={{ stroke: 'green', fill: 'green', r: 4 }}
+        />
+        <ChartTooltip
+          content={
+            <ChartTooltipContent
+              indicator="line"
+              labelFormatter={(value) => {
+                return value;
+              }}
+            />
+          }
+          cursor={false}
+        />
+      </LineChart>
+    </ChartContainer>
+  </CardContent>
+</Card>
+
         <Card
           className="max-w-xs" x-chunk="charts-01-chunk-3"
         >
