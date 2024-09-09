@@ -31,7 +31,7 @@ export const DashSidebar = () => {
         <li>
           <Button
             onClick={() => handleTabChange('All Ships')}
-            className={`w-full px-4 py-3 text-left rounded-lg transition-colors duration-300 ${
+            className={`w-full px-12 py-3 text-left rounded-lg transition-colors duration-300 ${
               activeTab === 'All Ships'
                 ? 'hover:bg-red-600 bg-red-500 text-white' // Active tab in red
                 : 'bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-100'
@@ -43,7 +43,7 @@ export const DashSidebar = () => {
         <li>
           <Button
             onClick={() => handleTabChange('Search')}
-            className={`w-full px-4 py-3 text-left rounded-lg transition-colors duration-300 ${
+            className={`w-full px-12 py-3 text-left rounded-lg transition-colors duration-300 ${
               activeTab === 'Search'
                 ? 'hover:bg-red-600 bg-red-500 text-white' // Active tab in red
                 : 'bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-100'

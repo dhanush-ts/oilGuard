@@ -10,30 +10,36 @@ import {
 } from "@/components/ui/select";
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import axios from 'axios';
+import { ChevronsLeftIcon } from 'lucide-react';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export const VesselFinderRoute = () => {
   // State for vessels data
-  const [vessels, setVessels] = useState([
-    {
-      name: 'DESH VISHAL',
-      year: 2009,
-      gt: 162412,
-      dwt: 321137,
-      size: '333 / 60',
-      flag: 'India',
-      imgSrc: 'https://static.vesselfinder.net/ship-photo/9371749-419778000-770340b35e42eb97a683bf976b44d4e5/3?v1',
-    },
-    {
-      name: 'DESH UJAALA',
-      year: 2005,
-      gt: 161248,
-      dwt: 316217,
-      size: '333 / 60',
-      flag: 'India',
-      imgSrc: 'https://static.vesselfinder.net/ship-photo/9297486-419532000-fd61edfc0ce44d89bd6b23b5ed19f5f0/3?v1',
-    },
-  ]);
+  const [vessels, setVessels] = useState([]);
 
+  useEffect(() => {
+    // Fetch vessel data from the API
+    const fetchVessels = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/vessels'); // Update URL if necessary
+        setVessels(response.data);
+      } catch (error) {
+        console.error('Error fetching vessel data:', error);
+      }
+    };
+
+    fetchVessels();
+  }, []);
   // State for selected options
   const [selectedFlag, setSelectedFlag] = useState('-');
   const [selectedType, setSelectedType] = useState('-1');
@@ -53,17 +59,27 @@ export const VesselFinderRoute = () => {
     setInputValue(event.target.value);
   };
 
-  // Filter vessels based on selected flag and type
-  const filteredVessels = vessels.filter(vessel => {
-    return (
-      (selectedFlag === '-' || vessel.flag === selectedFlag) &&
-      (selectedType === '-1' || (selectedType === '6' && vessel.gt > 0) || (vessel.size && vessel.size.includes(selectedType)))
-    );
-  });
 
-  useEffect(() => {
-    console.log(`https://www.vesselfinder.com/vessels?${inputValue ? `name=${inputValue}&` : ""}type=${selectedType}&flag=${selectedFlag}`);
-  }, [selectedFlag, selectedType, inputValue]);
+  const Handle = () => {
+
+    const queryParams = new URLSearchParams({
+      name: inputValue,
+      type: selectedType,
+      flag: selectedFlag,
+    }).toString();
+
+    const fetchVessels = async () => {
+      try {
+        const response = await axios.get(`http://11.12.4.129:5005/api/vessels?${queryParams}`);
+        setVessels(response.data);
+        console.log(response);
+      } catch (error) {
+        console.error('Error fetching vessel data:', error);
+      }
+    };
+
+    fetchVessels();
+  }
 
   return (
     <div className="container mx-auto pb-4">
@@ -130,7 +146,7 @@ export const VesselFinderRoute = () => {
             <SelectItem value="cv">Cape Verde</SelectItem>
             <SelectItem value="ky">Cayman Islands</SelectItem>
             <SelectItem value="cf">Central Africa Rep (CAR)</SelectItem>
-            <SelectItem value="td">Chad</SelectItem>
+            <SelectItem value="TableCell">Chad</SelectItem>
             <SelectItem value="cl">Chile</SelectItem>
             <SelectItem value="cn">China</SelectItem>
             <SelectItem value="cx">Christmas Island</SelectItem>
@@ -391,39 +407,40 @@ export const VesselFinderRoute = () => {
   </SelectGroup>
 </SelectContent>
           </Select>
-          <Button >Search</Button>
+          <Button onClick={Handle}>Search</Button>
         </form>
       </div>
 
       {/* Vessel Table */}
-      <table className="table-auto w-full bg-white rounded-lg shadow-lg">
-        <thead>
-          <tr className="bg-gray-200 text-left">
-            <th className="px-4 py-2">Vessel</th>
-            <th className="px-4 py-2">Year Built</th>
-            <th className="px-4 py-2">GT</th>
-            <th className="px-4 py-2">DWT</th>
-            <th className="px-4 py-2">Size</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredVessels.map((vessel, index) => (
-            <tr key={index} className="border-t">
-              <td className="px-4 py-2 flex items-center">
-                <img src={vessel.imgSrc} alt={vessel.name} className="w-16 h-16 mr-4 rounded" />
-                <div>
-                  <div className="font-bold">{vessel.name}</div>
-                  <div className="text-sm text-gray-600">{vessel.size}</div>
-                </div>
-              </td>
-              <td className="px-4 py-2">{vessel.year}</td>
-              <td className="px-4 py-2">{vessel.gt}</td>
-              <td className="px-4 py-2">{vessel.dwt}</td>
-              <td className="px-4 py-2">{vessel.size}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table>
+      <TableCaption>A list of vessels.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[200px]">Vessel</TableHead>
+          <TableHead className="w-[150px]">Year Built</TableHead>
+          <TableHead className="w-[100px]">GT</TableHead>
+          <TableHead className="w-[100px]">DWT</TableHead>
+          <TableHead className="w-[100px]">Size</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {vessels.map((vessel) => (
+          <TableRow key={vessel.name}>
+            <TableCell className="flex items-center px-4 py-2 space-x-4">
+              <img src={vessel.image_source} alt={vessel.name} className="w-16 h-16 rounded" />
+              <div>
+                <div className="font-bold">{vessel.name}</div>
+                <div className="text-sm text-gray-600">{vessel.size}</div>
+              </div>
+            </TableCell>
+            <TableCell className="px-2 py-2">{vessel.year_built}</TableCell>
+            <TableCell className="px-2 py-2">{vessel.gt}</TableCell>
+            <TableCell className="px-2 py-2">{vessel.dwt}</TableCell>
+            <TableCell className="px-2 py-2">{vessel.size}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
     </div>
   );
 };
