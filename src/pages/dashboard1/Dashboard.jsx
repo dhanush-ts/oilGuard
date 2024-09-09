@@ -38,255 +38,212 @@ export function Charts() {
   return (
     <div className="chart-wrapper mx-auto flex max-w-7xl flex-col flex-wrap items-start justify-center ml-28 gap-24 sm:flex-row sm:p-8">
       <div className="grid w-full gap-16 sm:grid-cols-2 lg:max-w-[22rem] lg:grid-cols-1 xl:max-w-[25rem]">
-        <Card
-          className="lg:max-w-md" x-chunk="charts-01-chunk-0"
-        >
-          <CardHeader className="space-y-0 pb-2">
-            <CardDescription>Today</CardDescription>
-            <CardTitle className="text-4xl tabular-nums">
-              12,584{" "}
-              <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
-                steps
-              </span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={{
-                steps: {
-                  label: "Steps",
-                  color: "hsl(var(--chart-1))",
-                },
+      <Card className="lg:max-w-md">
+  <CardHeader className="space-y-0 pb-2">
+    <CardDescription>Post-Oil Spill Recovery Techniques</CardDescription>
+    <CardTitle className="text-4xl tabular-nums">
+      $ 157.03 Bn{" "}
+      <span className="font-sans text-sm font-normal tracking-normal text-muted-foreground">
+        (2023 Total Market Size)
+      </span>
+    </CardTitle>
+  </CardHeader>
+  <CardContent>
+    <ChartContainer
+      config={{
+        recoveryTechnique: {
+          label: "Recovery Technique",
+          color: "hsl(var(--chart-1))",
+        },
+      }}
+    >
+      <BarChart
+        accessibilityLayer
+        margin={{
+          left: -4,
+          right: -4,
+        }}
+        data={[
+          {
+            technique: "Mech",
+            revenue: 60.0,
+          },
+          {
+            technique: "Chemical",
+            revenue: 50.0,
+          },
+          {
+            technique: "Biological",
+            revenue: 30.0,
+          },
+          {
+            technique: "Others",
+            revenue: 17.03,
+          },
+        ]}
+      >
+        <Bar
+          dataKey="revenue"
+          fill="var(--color-recoveryTechnique)"
+          radius={5}
+          fillOpacity={0.6}
+          activeBar={<Rectangle fillOpacity={0.8} />}
+        />
+        <XAxis
+          dataKey="technique"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={4}
+        />
+        <YAxis
+          dataKey="revenue"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={4}
+          label={{ value: "Revenue (USD Billion)", angle: -90, position: 'insideLeft' }}
+        />
+        <ChartTooltip
+          defaultIndex={0}
+          content={
+            <ChartTooltipContent
+              hideIndicator
+              labelFormatter={(value) => {
+                return value;
               }}
-            >
-              <BarChart
-                accessibilityLayer
-                margin={{
-                  left: -4,
-                  right: -4,
-                }}
-                data={[
-                  {
-                    date: "2024-01-01",
-                    steps: 2000,
-                  },
-                  {
-                    date: "2024-01-02",
-                    steps: 2100,
-                  },
-                  {
-                    date: "2024-01-03",
-                    steps: 2200,
-                  },
-                  {
-                    date: "2024-01-04",
-                    steps: 1300,
-                  },
-                  {
-                    date: "2024-01-05",
-                    steps: 1400,
-                  },
-                  {
-                    date: "2024-01-06",
-                    steps: 2500,
-                  },
-                  {
-                    date: "2024-01-07",
-                    steps: 1600,
-                  },
-                ]}
-              >
-                <Bar
-                  dataKey="steps"
-                  fill="var(--color-steps)"
-                  radius={5}
-                  fillOpacity={0.6}
-                  activeBar={<Rectangle fillOpacity={0.8} />}
-                />
-                <XAxis
-                  dataKey="date"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={4}
-                  tickFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      weekday: "short",
-                    })
-                  }}
-                />
-                <ChartTooltip
-                  defaultIndex={2}
-                  content={
-                    <ChartTooltipContent
-                      hideIndicator
-                      labelFormatter={(value) => {
-                        return new Date(value).toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })
-                      }}
-                    />
-                  }
-                  cursor={false}
-                />
-                <ReferenceLine
-                  y={1200}
-                  stroke="hsl(var(--muted-foreground))"
-                  strokeDasharray="3 3"
-                  strokeWidth={1}
-                >
-                  <Label
-                    position="insideBottomLeft"
-                    value="Average Steps"
-                    offset={10}
-                    fill="hsl(var(--foreground))"
-                  />
-                  <Label
-                    position="insideTopLeft"
-                    value="12,343"
-                    className="text-lg"
-                    fill="hsl(var(--foreground))"
-                    offset={10}
-                    startOffset={100}
-                  />
-                </ReferenceLine>
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-          <CardFooter className="flex-col items-start gap-1">
-            <CardDescription>
-              Over the past 7 days, you have walked{" "}
-              <span className="font-medium text-foreground">53,305</span> steps.
-            </CardDescription>
-            <CardDescription>
-              You need{" "}
-              <span className="font-medium text-foreground">12,584</span> more
-              steps to reach your goal.
-            </CardDescription>
-          </CardFooter>
-        </Card>
-        <Card
-          className="flex flex-col lg:max-w-md" x-chunk="charts-01-chunk-1"
-        >
-          <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2 [&>div]:flex-1">
-            <div>
-              <CardDescription>Resting HR</CardDescription>
-              <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
-                62
-                <span className="text-sm font-normal tracking-normal text-muted-foreground">
-                  bpm
-                </span>
-              </CardTitle>
-            </div>
-            <div>
-              <CardDescription>Variability</CardDescription>
-              <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
-                35
-                <span className="text-sm font-normal tracking-normal text-muted-foreground">
-                  ms
-                </span>
-              </CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="flex flex-1 items-center">
-            <ChartContainer
-              config={{
-                resting: {
-                  label: "Resting",
-                  color: "hsl(var(--chart-1))",
-                },
+            />
+          }
+          cursor={false}
+        />
+      </BarChart>
+    </ChartContainer>
+  </CardContent>
+  <CardFooter className="flex-col items-start gap-1">
+    <CardDescription>
+      The mechanical containment segment leads the post-oil spill recovery market
+      with a revenue of{" "}
+      <span className="font-medium text-foreground">USD 60 billion</span>, followed
+      by chemical recovery at USD 50 billion.
+    </CardDescription>
+  </CardFooter>
+</Card>
+<Card className="flex flex-col lg:max-w-md">
+  <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2 [&>div]:flex-1">
+    <div>
+      <CardDescription>Market Growth</CardDescription>
+      <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
+        3.5%
+        <span className="text-sm font-normal tracking-normal text-muted-foreground">
+          CAGR
+        </span>
+      </CardTitle>
+    </div>
+    <div>
+      <CardDescription>Projected CAGR (2023-2030)</CardDescription>
+      <CardTitle className="flex items-baseline gap-1 text-4xl tabular-nums">
+        3.9%
+        <span className="text-sm font-normal tracking-normal text-muted-foreground">
+          (Asia Pacific)
+        </span>
+      </CardTitle>
+    </div>
+  </CardHeader>
+  <CardContent className="flex flex-1 items-center">
+    <ChartContainer
+      config={{
+        marketGrowth: {
+          label: "Global Market Growth",
+          color: "hsl(var(--chart-1))",
+        },
+      }}
+      className="w-full"
+    >
+      <LineChart
+        accessibilityLayer
+        margin={{
+          left: 14,
+          right: 14,
+          top: 10,
+        }}
+        data={[
+          {
+            year: "2022",
+            marketGrowth: 125.6,
+          },
+          {
+            year: "2023",
+            marketGrowth: 157.03,
+          },
+          {
+            year: "2024",
+            marketGrowth: 196.36,
+          },
+          {
+            year: "2025",
+            marketGrowth: 205.5,
+          },
+          {
+            year: "2026",
+            marketGrowth: 215.0,
+          },
+          {
+            year: "2027",
+            marketGrowth: 225.6,
+          },
+          {
+            year: "2028",
+            marketGrowth: 235.2,
+          },
+          {
+            year: "2029",
+            marketGrowth: 245.3,
+          },
+          {
+            year: "2030",
+            marketGrowth: 255.5,
+          },
+        ]}
+      >
+        <CartesianGrid
+          strokeDasharray="4 4"
+          vertical={false}
+          stroke="hsl(var(--muted-foreground))"
+          strokeOpacity={0.5}
+        />
+        <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
+        <XAxis
+          dataKey="year"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+        />
+        <Line
+          dataKey="marketGrowth"
+          type="natural"
+          fill="var(--color-marketGrowth)"
+          stroke="var(--color-marketGrowth)"
+          strokeWidth={2}
+          dot={false}
+          activeDot={{
+            fill: "var(--color-marketGrowth)",
+            stroke: "var(--color-marketGrowth)",
+            r: 4,
+          }}
+        />
+        <ChartTooltip
+          content={
+            <ChartTooltipContent
+              indicator="line"
+              labelFormatter={(value) => {
+                return value;
               }}
-              className="w-full"
-            >
-              <LineChart
-                accessibilityLayer
-                margin={{
-                  left: 14,
-                  right: 14,
-                  top: 10,
-                }}
-                data={[
-                  {
-                    date: "2024-01-01",
-                    resting: 62,
-                  },
-                  {
-                    date: "2024-01-02",
-                    resting: 72,
-                  },
-                  {
-                    date: "2024-01-03",
-                    resting: 35,
-                  },
-                  {
-                    date: "2024-01-04",
-                    resting: 62,
-                  },
-                  {
-                    date: "2024-01-05",
-                    resting: 52,
-                  },
-                  {
-                    date: "2024-01-06",
-                    resting: 62,
-                  },
-                  {
-                    date: "2024-01-07",
-                    resting: 70,
-                  },
-                ]}
-              >
-                <CartesianGrid
-                  strokeDasharray="4 4"
-                  vertical={false}
-                  stroke="hsl(var(--muted-foreground))"
-                  strokeOpacity={0.5}
-                />
-                <YAxis hide domain={["dataMin - 10", "dataMax + 10"]} />
-                <XAxis
-                  dataKey="date"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  tickFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      weekday: "short",
-                    })
-                  }}
-                />
-                <Line
-                  dataKey="resting"
-                  type="natural"
-                  fill="var(--color-resting)"
-                  stroke="var(--color-resting)"
-                  strokeWidth={2}
-                  dot={false}
-                  activeDot={{
-                    fill: "var(--color-resting)",
-                    stroke: "var(--color-resting)",
-                    r: 4,
-                  }}
-                />
-                <ChartTooltip
-                  content={
-                    <ChartTooltipContent
-                      indicator="line"
-                      labelFormatter={(value) => {
-                        return new Date(value).toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })
-                      }}
-                    />
-                  }
-                  cursor={false}
-                />
-              </LineChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
+            />
+          }
+          cursor={false}
+        />
+      </LineChart>
+    </ChartContainer>
+  </CardContent>
+</Card>
       </div>
       <div className="grid w-full flex-1 gap-12 lg:max-w-[20rem]">
         <Card
