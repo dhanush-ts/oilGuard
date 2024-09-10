@@ -26,11 +26,11 @@ export const Header = () => {
             <Separator orientation="vertical" />
             <NavLink to='/dashboard' className={(a)=>a.isActive?"my-auto mx-2 hover:pb-2 hover:transition-all duration-500  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>Dashboard</NavLink>
             <Separator orientation="vertical" />
-            <NavLink to='/vehicle' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>Vehicle</NavLink>
-            <Separator orientation="vertical" />
+            <NavLink to='/portal' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>Spill Detection</NavLink>
+            {/* <Separator orientation="vertical" />
             <NavLink to='/place' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>Place</NavLink>
             <Separator orientation="vertical" />
-            <NavLink to='/user' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>User</NavLink>
+            <NavLink to='/user' className={(a)=>a.isActive?"my-auto hover:pb-2 hover:transition-all duration-500 mx-2  text-red-600 dark:text-red-400 font-semibold":"my-auto mx-2 dark:text-gray-500 hover:pb-2 hover:transition-all duration-500"}>User</NavLink> */}
         </nav>
         <div className="mx-5 flex">
           <i onClick={() => SetDark(!dark)} className={dark?"text-2xl bi bi-brightness-low border my-auto p-1 px-2 rounded-lg":"text-2xl rounded-lg bi bi-brightness-low-fill p-1 px-2 my-auto border"}></i>
