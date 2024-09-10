@@ -73,7 +73,7 @@ export function Charts() {
             revenue: 50.0,
           },
           {
-            technique: "Biological",
+            technique: "Bio",
             revenue: 30.0,
           },
           {
@@ -101,7 +101,7 @@ export function Charts() {
           axisLine={false}
           tickMargin={4}
           label={{ value: "Revenue (USD Billion)", angle: -90, position: "middle"}}
-        />
+        />  
         <ChartTooltip
           defaultIndex={0}
           content={
@@ -146,7 +146,7 @@ export function Charts() {
         </span>
       </CardTitle>
     </div>
-  </CardHeader>
+  </CardHeader> 
   <CardContent className="flex flex-1 items-center">
     <ChartContainer
       config={{

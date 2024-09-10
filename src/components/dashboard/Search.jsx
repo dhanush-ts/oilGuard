@@ -11,7 +11,7 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import axios from 'axios';
-import { ChevronsLeftIcon } from 'lucide-react';
+// import { ChevronsLeftIcon } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -22,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+// import { Link } from 'react-router-dom';
 
 export const VesselFinderRoute = () => {
   // State for vessels data
@@ -31,7 +32,7 @@ export const VesselFinderRoute = () => {
     // Fetch vessel data from the API
     const fetchVessels = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/vessels'); // Update URL if necessary
+        const response = await axios.get('https://siva.viyugha.tech/api/vessels'); // Update URL if necessary
         setVessels(response.data);
       } catch (error) {
         console.error('Error fetching vessel data:', error);
@@ -70,7 +71,7 @@ export const VesselFinderRoute = () => {
 
     const fetchVessels = async () => {
       try {
-        const response = await axios.get(`http://172.19.127.180:5005/api/vessels?${queryParams}`);
+        const response = await axios.get(`https://siva.viyugha.tech/api/vessels?${queryParams}`);
         setVessels(response.data);
         console.log(response);
       } catch (error) {
@@ -413,7 +414,7 @@ export const VesselFinderRoute = () => {
 
       {/* Vessel Table */}
       <Table>
-      <TableCaption>A list of vessels.</TableCaption>
+      {/* <TableCaption>A list of vessels.</TableCaption> */}
       <TableHeader>
         <TableRow>
           <TableHead className="w-[200px]">Vessel</TableHead>
@@ -425,7 +426,7 @@ export const VesselFinderRoute = () => {
       </TableHeader>
       <TableBody>
         {vessels.map((vessel) => (
-          <TableRow key={vessel.name}>
+          <TableRow onClick={() => window.open(vessel.link, '_blank')} className="hover:cursor-pointer"  key={vessel.name}>
             <TableCell className="flex items-center px-4 py-2 space-x-4">
               <img src={vessel.image_source} alt={vessel.name} className="w-16 h-16 rounded" />
               <div>
