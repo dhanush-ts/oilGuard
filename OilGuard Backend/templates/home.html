@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Coast Guard - Oil Spill Detection Portal</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        /* Header Styling */
+        header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 60px;
+            margin-right: 20px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(44, 62, 80, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Detection Details */
+        .detection-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            background-color: #34495e;
+            padding: 15px;
+            border-radius: 8px;
+            border: #1abc9c solid 2px;
+        }
+
+        img {
+            border: #1abc9c 1.5px solid;
+        }
+
+        .detection-details div {
+            background-color: #2c3e50;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .left, .right {
+            width: 48%;
+        }
+
+        /* Buttons Styling */
+        .buttons {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .buttons button:hover {
+            background-color: #16a085;
+        }
+
+        /* Enhanced Form Styling */
+        form#anomalyForm {
+            background-color: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 700px;
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+
+        form#anomalyForm .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form#anomalyForm label {
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+
+        form#anomalyForm input[type="text"],
+        form#anomalyForm select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        form#anomalyForm input[type="text"]:focus,
+        form#anomalyForm select:focus {
+            border-color: #1abc9c;
+            outline: none;
+        }
+
+        form#anomalyForm button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            grid-column: span 3;
+        }
+
+        form#anomalyForm button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Modal */
+        #detection-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #detection-modal .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #detection-modal button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        #acknowledge-button {
+            background-color: green;
+        }
+
+        #cancel-button {
+            background-color: red;
+        }
+
+        @media (max-width: 768px) {
+            form#anomalyForm {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            form#anomalyForm {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="static/images/logo.webp" alt="Logo">
+        <h1>Indian Coast Guard - Oil Spill Detection Portal</h1>
+    </header>
+
+    <div class="container">
+        <!-- Detection Details Section -->
+        <div class="section">
+            {% if detection_status %}
+            <button style="background-color: #e74c3c;color: #ecf0f1;padding: 15px;border-radius: 10px;font-size: 1.0em;cursor: pointer;" onclick="window.location.href = '/oil_guard'">VIEW OILGUARD DETAILS</button>
+            <br><h2 class="section-title">Detection Details: </h2>
+            <div class="detection-details">
+                <div><strong>Latitude:</strong> {{ detection_details.latitude }}</div>
+                <div><strong>Longitude:</strong> {{ detection_details.longitude }}</div>
+                <div><strong>Location:</strong> {{ detection_details.location }}</div>
+                <div><strong>Depth:</strong> {{ detection_details.depth }}</div>
+                <div><strong>AIS Number:</strong> {{ detection_details.ais_number }}</div>
+                <div><strong>Current Weather:</strong> {{ detection_details.current_weather }}</div>
+                <div><strong>Air Direction:</strong> {{ detection_details.air_direction }}</div>
+                <div><strong>Cargo-Direction: </strong> North-West</div>
+            </div>
+            {% else %}
+            <h1><u>Monitoring Board: </u></h1>
+            {% endif %}
+        </div>
+
+        <!-- Upload and Detection Status Section -->
+        <div class="section">
+            <form id="anomalyForm" action="/anomaly" method="post">
+                <div class="form-group">
+                    <label for="lat">Latitude:</label>
+                    <input type="text" id="lat" name="lat" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lon">Longitude:</label>
+                    <input type="text" id="lon" name="lon" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ns">Navigational Status:</label>
+                    <select id="ns" name="ns" required>
+                        <option value="" disabled selected>Select status</option>
+                        <option value="Constrained by her draught">Constrained by her draught</option>
+                        <option value="Under way using engine">Under way using engine</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sog">SOG:</label>
+                    <input type="text" id="sog" name="sog" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cog">COG:</label>
+                    <input type="text" id="cog" name="cog" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="heading">Heading:</label>
+                    <input type="text" id="heading" name="heading" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rot">ROT:</label>
+                    <input type="text" id="rot" name="rot" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="drought">Draught:</label>
+                    <input type="text" id="drought" name="drought" required>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+            <div id="imageUploadForm" style="display: none;">
+                <form action="/homepage" method="post" enctype="multipart/form-data">
+                    <label><strong>Sample Input -</strong></label> &ensp;
+                    <input type="file" name="file" accept="image/*" required>
+                    <button type="submit">Upload Image</button>
+                </form>
+            </div>
+
+            <div class="content" id="content1" style="display: none;">
+                <div class="left">
+                    {% if detection_status %}
+                        <p style="color: #e74c3c;"><strong style="color:#ecf0f1;">SAR Image -</strong> {{ detection_status }}!</p>
+                        <img src="{{ detection_image }}" alt="Detection Image" width="100%">
+                    {% else %}
+                        <p style="font-size: 25px;color: green;">&ensp; No detection occurs</p>
+                    {% endif %}
+                </div>
+                <div class="right">
+                    {% if detection_status %}
+                        <p style="color: #e74c3c;"><strong style="color:#ecf0f1;">AIS Image -</strong> {{ detection_status }}!</p>
+                        <img src="{{ world_map_image }}" alt="ASV Image" width="100%" height="575px">
+                    {% else %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- World Map Section -->
+        <div class="section" id="section" style="display: none;">
+
+        </div>
+
+        <!-- Action Buttons Section -->
+        <hr>
+        <div class="buttons">
+            <button>Inform Nearby Cargo</button>
+            <button>View ASV Map</button>
+            <button>Empty</button>
+            <button>Empty</button>
+        </div>
+    </div>
+
+    <!-- Modal for Detection -->
+    <div id="detection-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center;">
+        <div class="modal-content">
+            <p style="color: #2c3e50;">Detection occurred! Please acknowledge to start Nearby ASV and alert sound.</p>
+            <button id="acknowledge-button">Acknowledge</button>
+            <button id="cancel-button">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% if detection_status %}
+            // Display the modal for user interaction
+            document.getElementById('detection-modal').style.display = 'flex';
+
+            let alertSound = new Audio('static/sounds/emergency.mp3'); // Path to your alert sound file
+            alertSound.loop = true; // Ensure the sound loops until stopped
+
+            // Set up event listener for the acknowledge button
+            document.getElementById('acknowledge-button').addEventListener('click', function () {
+                // Hide the modal after user acknowledges
+                async function activate_esp() {
+                    const data = { detection: 'true' };
+
+                    try {
+                        const response = await fetch('/confirm_detection1', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        if (response.ok) {
+                            console.log('Detection confirmed successfully!');
+                        } else {
+                            console.log('Failed to confirm detection.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+
+                activate_esp();
+
+                document.getElementById('anomalyForm').style.display = 'none';
+                document.getElementById('content1').style.display = 'flex';
+                document.getElementById('section').style.display = 'block';
+                document.getElementById('detection-modal').style.display = 'none';
+
+                alertSound.play().then(() => {
+                    if (confirm('Alerted Successfully! Press OK and Click View OilGuard Details')) {
+                        alertSound.pause();
+                        alertSound.currentTime = 0;
+                        fetch('/stop_alert', { method: 'POST' });
+                    }
+                }).catch((error) => {
+                    console.error('Audio playback failed: ', error);
+                });
+            });
+
+            document.getElementById('cancel-button').addEventListener('click', function () {
+                document.getElementById('detection-modal').style.display = 'none';
+            });
+
+            {% else %}
+            alert("No spill occurred!");
+            {% endif %}
+        });
+
+        document.getElementById('anomalyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            fetch('/anomaly', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.is_anomaly === 'Yes') {
+                    document.getElementById('anomalyForm').style.display = 'none';
+                    document.getElementById('imageUploadForm').style.display = 'block';
+                    alert(`Anomaly Detected at (${data.latitude}, ${data.longitude})`);
+                } else {
+                    alert('No anomaly detected.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASV Swarm Simulation</title>
+    <style>
+        /* styles.css */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f8ff;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#simulationCanvas {
+    border: 1px solid #000;
+    background-color: #eef;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <h1>ASV Swarm Simulation for Oil Spill Cleanup</h1>
+    <canvas id="simulationCanvas"></canvas>
+    <button id="startSimulation">Start Simulation</button>
+    <script>
+        // script.js
+const canvas = document.getElementById('simulationCanvas');
+const ctx = canvas.getContext('2d');
+const startButton = document.getElementById('startSimulation');
+
+canvas.width = 500;
+canvas.height = 500;
+
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+const radius = 300;
+const numASVs = 6;
+const asvs = [];
+const speed = 2; // Speed of the ASVs moving towards the center
+
+// Function to initialize ASVs at equal intervals on the circle's circumference
+function initializeASVs() {
+    for (let i = 0; i < numASVs; i++) {
+        const angle = (i * 2 * Math.PI) / numASVs;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        asvs.push({ x, y, angle });
+    }
+}
+
+// Function to update the position of ASVs
+function updateASVs() {
+    asvs.forEach(asv => {
+        const targetX = centerX;
+        const targetY = centerY;
+        const angleToCenter = Math.atan2(targetY - asv.y, targetX - asv.x);
+        
+        // Update position towards the center without collision
+        asv.x += speed * Math.cos(angleToCenter);
+        asv.y += speed * Math.sin(angleToCenter);
+    });
+}
+
+// Function to check for collisions and adjust paths
+function avoidCollisions() {
+    for (let i = 0; i < asvs.length; i++) {
+        for (let j = i + 1; j < asvs.length; j++) {
+            const dx = asvs[i].x - asvs[j].x;
+            const dy = asvs[i].y - asvs[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 20) { // Collision threshold
+                // Adjust positions slightly to avoid overlap
+                asvs[i].x += dx * 0.1;
+                asvs[i].y += dy * 0.1;
+                asvs[j].x -= dx * 0.1;
+                asvs[j].y -= dy * 0.1;
+            }
+        }
+    }
+}
+
+// Function to draw the ASVs and the oil spill area
+function drawSimulation() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw oil spill area (center circle)
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 50, 0, 2 * Math.PI);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fill();
+    
+    // Draw each ASV
+    asvs.forEach(asv => {
+        ctx.beginPath();
+        ctx.arc(asv.x, asv.y, 10, 0, 2 * Math.PI);
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+    });
+}
+
+// Function to run the simulation loop
+function runSimulation() {
+    updateASVs();
+    avoidCollisions();
+    drawSimulation();
+
+    // Stop the simulation if all ASVs are near the center
+    if (asvs.every(asv => Math.hypot(asv.x - centerX, asv.y - centerY) < 10)) {
+        return; // Stop when all ASVs reach the center
+    }
+
+    requestAnimationFrame(runSimulation);
+}
+
+// Initialize and run the simulation when the button is pressed
+startButton.addEventListener('click', () => {
+    asvs.length = 0; // Clear existing ASVs if any
+    initializeASVs();
+    runSimulation();
+});
+
+    </script>
+</body>
+</html>

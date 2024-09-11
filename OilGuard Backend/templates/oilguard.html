@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oil Spill Detection in Oceans | Government Maritime Department</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            color: #ecf0f1;
+            overflow-x: hidden;
+        }
+
+        /* Radar Background Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(46, 204, 113, 0.3), transparent);
+            animation: radar-sweep 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes radar-sweep {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Government Banner Styling */
+        .gov-banner {
+            background-color: #16a085;
+            padding: 15px;
+            text-align: center;
+            color: #ecf0f1;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Main Heading */
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 40px;
+            color: #ecf0f1;
+        }
+
+        /* Main Container Layout */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(44, 62, 80, 0.8);
+            border-radius: 10px;
+        }
+
+        /* Panel Design */
+        .panel {
+            flex: 1;
+            background-color: #34495e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            margin: 10px;
+        }
+
+        .panel h2 {
+            color: #1abc9c;
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 10px;
+        }
+
+        /* Detail List Styling */
+        .detail-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 18px;
+            line-height: 2;
+        }
+
+        .detail-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #7f8c8d;
+        }
+
+        .detail-list li:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #1abc9c;
+        }
+
+        /* Phases Display */
+        #phases {
+            padding: 10px 0;
+            font-size: 18px;
+            color: #bdc3c7;
+            line-height: 1.8;
+        }
+
+        /* Button Design */
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #start-loop {
+            background-color: #e74c3c;
+        }
+
+        #start-loop:hover {
+            background-color: #c0392b;
+        }
+
+        #call-cargo {
+            background-color: #27ae60;
+        }
+
+        #call-cargo:hover {
+            background-color: #229954;
+        }
+
+        /* Nearest ASV List */
+        .bottom-panel {
+            background-color: #34495e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            max-width: 1200px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        #asv-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+            font-size: 18px;
+            color: #bdc3c7;
+        }
+
+        #asv-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #7f8c8d;
+        }
+
+        #asv-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Loop Count Display */
+        .count-container {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .count-number {
+            font-weight: bold;
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Government Banner -->
+    <div class="gov-banner">
+        Ministry of Oceanic Affairs | Government Maritime Department
+    </div>
+
+    <!-- Main Heading -->
+    <h1>Oil Spill Detection & Monitoring System</h1>
+
+    <div class="container">
+        <!-- Left Panel: ASV Details -->
+        <div class="panel">
+            <h2>ASV Details</h2>
+            <ul class="detail-list">
+                <li><span class="detail-label">ASV Number:</span> <span>12345</span></li>
+                <li><span class="detail-label">ASV Status:</span> <span>On</span></li>
+                <li><span class="detail-label">Battery Level:</span> <span>80%</span></li>
+                <li><span class="detail-label">Disposal Time:</span> <span>30 mins</span></li>
+                <li><span class="detail-label">Latitude:</span> <span>12.9716° N</span></li>
+                <li><span class="detail-label">Longitude:</span> <span>77.5946° E</span></li>
+                <li><span class="detail-label">Stability:</span> <span>Stable</span></li>
+                <li><span class="detail-label">Signal Strength:</span> <span>Strong</span></li>
+                <li><span class="detail-label">Progress:</span> <span>50%</span></li>
+                <li><span class="detail-label">Coupling Dock:</span> <span>Dock 3</span></li>
+            </ul>
+        </div>
+
+        <!-- Right Panel: ASV Phases -->
+        <div class="panel">
+            <h2>ASV Phases</h2>
+            <div id="phases">
+                <p>Initializing ASV...</p>
+                <p>Reached Location...</p>
+                <p>Pump Activation...</p>
+                <p>Float Sensor Alert...</p>
+                <p>Returning to nearby dock station...</p>
+                <p>Estimated time to reach...</p>
+            </div>
+            <button id="start-loop" class="button" onclick="startProcess()">Start Process</button>
+
+            <div class="count-container">
+                <label>Loop Count:</label> <span class="count-number" id="loop-count">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Panel: Nearest Available ASVs -->
+    <div class="bottom-panel">
+        <h2>Nearest Available ASVs</h2>
+        <ul id="asv-list">
+            <li>ASV 2345</li>
+            <li>ASV 3456</li>
+            <li>ASV 4567</li>
+            <li>ASV 5678</li>
+            <li>ASV 6789</li>
+        </ul>
+        <button id="call-cargo" class="button">Call to Nearest Available Cargos</button>
+    </div>
+
+    <script>
+        const phases = [
+            "Initializing ASV...",
+            "Reached Location...",
+            "Pump Activation...",
+            "Float Sensor Alert...",
+            "Returning to nearby dock station...",
+            "Estimated time to reach..."
+        ];
+
+        let loopCount = 0;
+        const maxLoops = 3;
+
+        function startProcess() {
+            if (loopCount < maxLoops) {
+                loopCount++;
+                document.getElementById("loop-count").textContent = loopCount;
+
+                let phaseElement = document.getElementById("phases");
+                let index = 0;
+
+                function displayNextPhase() {
+                    if (index < phases.length) {
+                        phaseElement.innerHTML = <p>${phases[index]}</p>;
+                        index++;
+                        setTimeout(displayNextPhase, 1000);
+                    } else {
+                        startProcess();
+                    }
+                }
+
+                displayNextPhase();
+            } else {
+                document.getElementById("phases").innerHTML = <p>Oil Spill Cleaned!</p>;
+            }
+        }
+    </script>
+</body>
+</html>
